@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cridm-orange: #ef9421;
+  --color-cridm-orange-hover: #d87f13;
+  --color-cridm-orange-light: #fff8ee;
+  --color-cridm-orange-border: #fcd9a8;
+
+  --color-cridm-slate: #344b57;
+  --color-cridm-slate-dark: #22323a;
+  --color-cridm-slate-light: #f0f4f7;
+  --color-cridm-slate-border: #d4e0e6;
+
+  --color-cridm-dark: #313131;
+  --color-cridm-bg: #f8fafb;
+}
+
+body {
+  color: #313131;
+  background-color: #f8fafb;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
