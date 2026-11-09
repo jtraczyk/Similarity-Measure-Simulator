@@ -287,7 +287,7 @@ export default function App() {
           <div className="flex items-center gap-3">
             {/* Official CRIDM Logo */}
             <img
-              src="/logo-cridm.png"
+              src="./logo-cridm.png"
               onError={(e) => {
                 e.currentTarget.src = 'https://cridm.edu.pl/wp-content/uploads/2019/05/logo-02.png';
               }}
@@ -404,7 +404,7 @@ export default function App() {
                     Formal Piecewise Formulation (From Paper)
                   </span>
                   <img
-                    src="/assets/aistudio/image_adbfa6d0.png"
+                    src="./assets/aistudio/image_adbfa6d0.png"
                     alt="Equation (1): Piecewise definition of Similarity Measure δ(n)"
                     className="max-h-24 sm:max-h-28 w-auto object-contain my-1"
                   />
