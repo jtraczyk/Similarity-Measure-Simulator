@@ -1,6 +1,6 @@
 {
   "name": "Deliberation & Similarity Measure Simulator",
-  "description": "A scientific simulator for decision-making research, modeling the similarity measure δ(n), exploration sampling, and Fuzzy Trace Theory deliberation interventions across numeracy levels.",
+  "description": "A scientific simulator for decision-making research, operationalizing deliberation as sampling via the similarity measure δ(n) to reduce epistemic uncertainty and approximate true Expected Value in Decisions from Experience.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

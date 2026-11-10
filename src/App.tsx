@@ -30,8 +30,10 @@ import {
   Upload,
   FileSpreadsheet,
   Sparkles,
-  FileText
+  FileText,
+  BookOpen
 } from 'lucide-react';
+import { ReadmeTab } from './components/ReadmeTab';
 import { TABLE_3_CHOICE_PROBLEMS } from './data/paperData';
 import {
   runRScriptAlgorithm,
@@ -259,8 +261,8 @@ export default function App() {
     return points;
   }, [draws]);
 
-  // Section toggle: 'simulator' vs 'table'
-  const [activeSection, setActiveSection] = useState<'simulator' | 'table'>('simulator');
+  // Section toggle: 'simulator' vs 'table' vs 'readme'
+  const [activeSection, setActiveSection] = useState<'simulator' | 'table' | 'readme'>('simulator');
 
   // R script data simulation
   const rResult = useMemo(() => runRScriptAlgorithm(30), []);
@@ -337,6 +339,17 @@ export default function App() {
               >
                 18 Empirical Decision Gambles (R Pipeline)
               </button>
+              <button
+                onClick={() => setActiveSection('readme')}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-all ${
+                  activeSection === 'readme'
+                    ? 'bg-[#344b57] text-white shadow-xs font-semibold'
+                    : 'text-[#344b57] hover:text-[#1c2a31] hover:bg-white/60'
+                }`}
+              >
+                <BookOpen className="w-3.5 h-3.5 text-[#ef9421]" />
+                <span>README &amp; Guide</span>
+              </button>
             </div>
 
             <button
@@ -368,11 +381,8 @@ export default function App() {
                   <div>
                     <div className="flex items-center gap-2">
                       <h2 className="text-xs uppercase font-mono tracking-wider font-bold text-[#617986]">
-                        Equation (1) · Similarity Measure δ(n)
+                        Equation · Similarity Measure δ(n)
                       </h2>
-                      <span className="text-[10px] font-mono text-[#344b57] bg-[#f0f4f7] px-1.5 py-0.5 rounded border border-[#dce3e8]">
-                        Mondal &amp; Traczyk (page 9)
-                      </span>
                     </div>
                     <p className="text-xs text-[#617986] mt-1 leading-relaxed">
                       Quantifies the similarity between the sample distribution generated during exploration and the true distribution by tracking the diminishing relative change between successive sample means μ(n) and μ(n−1).
@@ -405,27 +415,27 @@ export default function App() {
                   </span>
                   <img
                     src="./assets/aistudio/image_adbfa6d0.png"
-                    alt="Equation (1): Piecewise definition of Similarity Measure δ(n)"
+                    alt="Equation: Piecewise definition of Similarity Measure δ(n)"
                     className="max-h-24 sm:max-h-28 w-auto object-contain my-1"
                   />
                 </div>
 
                 <div className="md:col-span-5 text-xs text-[#344b57] space-y-2">
                   <div className="font-semibold text-xs text-[#344b57] flex items-center gap-1.5">
-                    <span>Variable Definitions &amp; Piecewise Logic</span>
+                    <span>Deliberation Proxy &amp; Epistemic Uncertainty Reduction</span>
                   </div>
                   <ul className="space-y-1.5 text-[11px] text-[#617986] font-sans">
                     <li className="flex items-start gap-1.5">
                       <span className="font-mono font-bold text-[#ef9421] shrink-0">•</span>
-                      <span><strong className="text-[#344b57] font-mono">μ(n) &amp; μ(n−1):</strong> Sample means after <span className="font-mono">n</span> and <span className="font-mono">n−1</span> draws.</span>
+                      <span><strong className="text-[#344b57] font-mono">Convergence to True EV:</strong> As sampling increases, the difference between successive means |μ(n) − μ(n−1)| decreases, reflecting convergence of the sample mean toward the true Expected Value.</span>
                     </li>
                     <li className="flex items-start gap-1.5">
                       <span className="font-mono font-bold text-[#ef9421] shrink-0">•</span>
-                      <span><strong className="text-[#344b57] font-mono">μ(n−1) &gt; 0:</strong> δ(n) equals 1 minus percentage shift in mean. As draws increase, shift approaches 0 and δ(n) approaches 1.</span>
+                      <span><strong className="text-[#344b57] font-mono">Epistemic Uncertainty:</strong> In DfE, participants sample to overcome unfamiliarity with payoff distributions without computing formal variances. δ(n) quantifies this learning process.</span>
                     </li>
                     <li className="flex items-start gap-1.5">
                       <span className="font-mono font-bold text-[#ef9421] shrink-0">•</span>
-                      <span><strong className="text-[#344b57] font-mono">μ(n−1) = 0:</strong> Properly handles initial non-zero transition (δ=0) or invariant zero draws (δ=1).</span>
+                      <span><strong className="text-[#344b57] font-mono">Problem-Specific Criterion:</strong> Calibrates sampling limits to gamble uncertainty (e.g. 15 vs 10 samples for 90% similarity) across Low (70%), Moderate (80%), and High (90%) conditions.</span>
                     </li>
                   </ul>
                 </div>
@@ -446,7 +456,7 @@ export default function App() {
                           : 'text-[#617986] hover:text-[#344b57]'
                       }`}
                     >
-                      Figure 1 Benchmark (Low vs High Uncertainty)
+                      Figure 1 Benchmark (15 vs 10 Samples for 90% Similarity)
                     </button>
                     <button
                       onClick={() => setPreset('table3')}
@@ -958,16 +968,9 @@ export default function App() {
                   </LineChart>
                 </ResponsiveContainer>
               </div>
-
-              <div className="mt-3.5 p-3.5 bg-[#f0f4f7] rounded-lg text-xs text-[#344b57] flex items-start gap-2 border border-[#dce3e8]">
-                <CheckCircle2 className="w-4 h-4 text-[#ef9421] shrink-0 mt-0.5" />
-                <span>
-                  <strong>CRIDM Scientific Finding:</strong> At 10 samples, a low-uncertainty gamble reaches <span className="font-mono font-semibold text-[#344b57]">δ(10) = 0.90</span>, whereas high-uncertainty reaches only <span className="font-mono font-semibold text-[#d87f13]">δ(10) = 0.84</span>. Higher uncertainty mathematically requires more exploration to form an accurate verbatim representation.
-                </span>
-              </div>
             </div>
           </div>
-        ) : (
+        ) : activeSection === 'table' ? (
           /* SECTION 2: R SCRIPT SIMILARITY CONDITION TABLE & HISTOGRAM */
           <div className="space-y-6">
             <div className="bg-white border border-[#dce3e8] rounded-xl p-5 shadow-xs">
@@ -1093,6 +1096,12 @@ export default function App() {
               </div>
             </div>
           </div>
+        ) : (
+          /* SECTION 3: README & USER GUIDE */
+          <ReadmeTab
+            onGoToSimulator={() => setActiveSection('simulator')}
+            onGoToRTable={() => setActiveSection('table')}
+          />
         )}
       </main>
     </div>
